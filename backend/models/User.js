@@ -20,4 +20,6 @@ date: {
 },
 });
 
-module.exports = mongoose.model('user', UserSchema); //accepts name of model and schema
+const User = mongoose.model('user', UserSchema); //accepts name of model and schema
+User.createIndexes(); //to ensure unique email id
+module.exports = User;
