@@ -6,6 +6,7 @@ connectToMongo();
 const app = express()
 const port = 3000
 
+app.use(express.json())  //this is a middleware reqd so that we can access req.body in our models. this allows to send rwquests in JSON format
 //Available Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/notes', require('./routes/notes'));
