@@ -92,7 +92,7 @@ router.post(
   });
 
 //ROUTE 3: Get logged in user details using POST "api/auth/getuser". Login reqd. Hence, token needs to be passed.
-router.post(
+router.get(
   "/getuser", fetchuser, async (req, res) => {  //Using fetchUser middleware after which the async fn is called
     try {
       userId = req.user.id;
