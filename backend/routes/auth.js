@@ -4,7 +4,8 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = "someSecretCode"
+const JWT_SECRET = "someSecretCode";  //todo : move this to anv local
+const fetchuser = require('../middleware/fetchuser');
 
 // ROUTE 1: Create a user using POST "/api/auth/createuser". No login reqd
 router.post('/createuser', [
@@ -76,6 +77,7 @@ router.post(
           .json({ error: "Please try to login with correct credentials." });
       }
 
+      //Sending user id as data which means it will be a part of the JWT
       const data = {
         user: {
           id: user.id,
@@ -89,5 +91,22 @@ router.post(
     }
   });
 
-//ROUTE 3: Get logged in user details using POST "api/auth/getuser". Login reqd.
+//ROUTE 3: Get logged in user details using POST "api/auth/getuser". Login reqd. Hence, token needs to be passed.
+router.post(
+  "/getuser", fetchuser, async (req, res) => {  //Using fetchUser middleware after which the async fn is called
+    try {
+      userId = req.user.id;
+      const user = await User.findById(userId).select("-password"); //allowing to select all the fields wxcept the pwd
+      res.send(user);       
+      console.log(error.message);
+      res.status(500).send("Internal Server Error");
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+  }
+);
+
 module.exports = router
+
+/* We move the logic to fetch user ina middleware so that we can use it anytime we need to create a new endpoint that requires user id */
