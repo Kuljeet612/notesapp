@@ -1,11 +1,12 @@
 const connectToMongo = require('./db');
 const express = require('express');
+var cors = require('cors'); 
 
 connectToMongo();
-
-const app = express()
+const app = express();
 const port = 5000  //changing to 5000 as 3000 will be used by the React app
 
+app.use(cors()); //to allow browser use the APIs
 app.use(express.json())  //this is a middleware reqd so that we can access req.body in our models. this allows to send rwquests in JSON format
 //Available Routes
 app.use('/api/auth', require('./routes/auth'));
