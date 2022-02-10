@@ -4,7 +4,7 @@ import NotesContext from "./NotesContext";
 const NoteState = (props) => {
     const notesInitial = [
         {
-            "_id": "62014dd5a8ac977b70e2e490",
+            "_id": "62014dd5a8ac97a7b70e2e490",
             "user": "6200a95bc1727f6348379bf1",
             "title": "My title",
             "desc": "Hello there!",
@@ -13,7 +13,7 @@ const NoteState = (props) => {
             "__v": 0
           },
           {
-            "_id": "620158d7750c711308b90ece",
+            "_id": "620158d7750c7113108b90ece",
             "user": "6200a95bc1727f6348379bf1",
             "title": "Note2",
             "desc": "Lofi playlist",
@@ -22,7 +22,7 @@ const NoteState = (props) => {
             "__v": 0
           },
           {
-            "_id": "62014dd5a8ac977b70e2e490",
+            "_id": "62014dd5a8ac977b70e23e490",
             "user": "6200a95bc1727f6348379bf1",
             "title": "My title",
             "desc": "Hello there!",
@@ -31,7 +31,7 @@ const NoteState = (props) => {
             "__v": 0
           },
           {
-            "_id": "620158d7750c711308b90ece",
+            "_id": "620158d7750c711308b940ece",
             "user": "6200a95bc1727f6348379bf1",
             "title": "Note2",
             "desc": "Lofi playlist",
@@ -40,7 +40,7 @@ const NoteState = (props) => {
             "__v": 0
           },
           {
-            "_id": "62014dd5a8ac977b70e2e490",
+            "_id": "62014dd5a8ac977b70e52e490",
             "user": "6200a95bc1727f6348379bf1",
             "title": "My title",
             "desc": "Hello there!",
@@ -49,7 +49,7 @@ const NoteState = (props) => {
             "__v": 0
           },
           {
-            "_id": "620158d7750c711308b90ece",
+            "_id": "620158d7750c711308b960ece",
             "user": "6200a95bc1727f6348379bf1",
             "title": "Note2",
             "desc": "Lofi playlist",
