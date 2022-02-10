@@ -60,22 +60,39 @@ const NoteState = (props) => {
     ]
     const[notes, setNotes] = useState(notesInitial);
 
-    const s1 = {
-        "name": "Kuljeet",
-        "class": "5b" 
+   
+    //Add a note
+    const addNote = (title, desc, tag) => {
+        //TODO: API Call
+        console.log("Adding a new note");
+       const note =  {
+            "_id": "620158d7750c711308b960ece",
+            "user": "6200a95bc1727f6348379bf1",
+            "title": title,
+            "desc": desc,
+            "tag": tag,
+            "date": "2022-02-07T17:37:27.726Z",
+            "__v": 0
+          };
+        setNotes(notes.concat(note));  //using concat because concat returns an array while push updates an array
     }
-    const [state, setState] = useState(s1);  //setting inital state
 
-    const update = () => {
-        setTimeout(() => {
-            setState({
-                "name": "Rachel",
-                "class": "10b"  
-            })
-        }, 1000)
+    //Delete a note
+ const deleteNote = (noteId) => {
+    const newNotes = notes.filter((note) => {
+        return note._id !== noteId;
+    })
+    setNotes(newNotes);
+    console.log("Deleted note with id: "+noteId);
     }
+
+    //Edit a note
+    const editNote = (noteId) => {
+        
+    }
+
     return (
-        <NotesContext.Provider value={{notes, setNotes}}>
+        <NotesContext.Provider value={{notes, addNote, deleteNote, editNote}}>
             {props.children}
         </NotesContext.Provider>
     )
