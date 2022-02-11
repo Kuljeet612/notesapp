@@ -4,10 +4,10 @@ import notesContext from "../context/notes/NotesContext";
 export const AddNote = () => {
     const context = useContext(notesContext);
     const { addNote } = context;
-    const [note, setNote] = useState({title:"", description: "", tag: "defualt"});
+    const [note, setNote] = useState({title:"", desc: "", tag: "default"});
     const addNoteHandler = (e) => {
         e.preventDefault(); //to avoid page reloading
-        addNote(note.title, note.description, note.tag);
+        addNote(note.title, note.desc, note.tag);
     }
 
     const onChangeHandler = (e) => {
@@ -31,27 +31,30 @@ export const AddNote = () => {
         />       
       </div>
       <div className="mb-3">
-        <label htmlFor="description" className="form-label">
+        <label htmlFor="desc" className="form-label">
           Description
         </label>
         <input
           type="text"
           className="form-control"
-          id="description"
-          name="description"
+          id="desc"
+          name="desc"
           onChange={onChangeHandler}
         />
       </div>
-      <div className="mb-3 form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="exampleCheck1"
-        />
-        <label className="form-check-label" htmlFor="exampleCheck1">
-          Check me out
+      <div className="mb-3">
+        <label htmlFor="tag" className="form-label">
+          Tag
         </label>
+        <input
+          type="text"
+          className="form-control"
+          id="tag"
+          name="tag"
+          onChange={onChangeHandler}
+        />
       </div>
+   
       <button type="submit" className="btn btn-primary" onClick={addNoteHandler}>
         Add Note
       </button>

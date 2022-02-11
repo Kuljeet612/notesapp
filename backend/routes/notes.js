@@ -18,9 +18,9 @@ router.get('/all', fetchuser, async (req, res) => {
 
 // ROUTE 2: Create a new not using POST "/api/notes/create". Login reqd
 
-router.get('/create', fetchuser, [  
+router.post('/create', fetchuser, [  
     body('title', "Enter a valid title.").isLength({min : 3}),
-    body('desc', "Enter a valid dexription.").isLength({min : 5}),    
+    body('desc', "Enter a valid desription.").isLength({min : 5}),    
 ], async (req, res) => { 
     try {
       const { title, desc, tag } = req.body;
