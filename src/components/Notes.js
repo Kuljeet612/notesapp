@@ -3,7 +3,7 @@ import notesContext from '../context/notes/NotesContext';
 import NoteItem from './NoteItem';
 import { AddNote } from './AddNote';
 
-function Notes() {
+function Notes(props) {
   const context = useContext(notesContext);
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
@@ -20,6 +20,7 @@ function Notes() {
     e.preventDefault(); //to avoid page reloading
     editNote(note.id, note.etitle, note.edesc, note.etag);
     refClose.current.click();  //using close btn reference to click it and close the modal when update btn is clicked
+    props.showAlert("Updated successfully!!!", "success");
   };
   
   const onChangeHandler = (e) => {
@@ -28,12 +29,12 @@ function Notes() {
 
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({id:currentNote._id, etitle: currentNote.title, edesc:currentNote.desc, etag:currentNote.tag});  //This will prefill the values in the edit modal when clicked
+    setNote({id:currentNote._id, etitle: currentNote.title, edesc:currentNote.desc, etag:currentNote.tag});  //This will prefill the values in the edit modal when clicked    
   }
 
   return (
     <>
-    <AddNote/>   
+    <AddNote showAlert={props.showAlert}/>   
     <button type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal" ref={ref}>
       Launch demo modal
     </button>
@@ -105,7 +106,7 @@ function Notes() {
         {notes.length === 0 && "No notes to display"}
         </div>        
         {notes.map((note) => {
-          return <NoteItem key={note._id} updateNote={updateNote} note={note}/>
+          return <NoteItem key={note._id} updateNote={updateNote} note={note} showAlert={props.showAlert}/>
         })}
     </div>
       </>
