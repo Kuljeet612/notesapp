@@ -4,10 +4,12 @@ import notesContext from "../context/notes/NotesContext";
 export const AddNote = () => {
     const context = useContext(notesContext);
     const { addNote } = context;
-    const [note, setNote] = useState({title:"", desc: "", tag: "default"});
+    const [note, setNote] = useState({title:"", desc: "", tag: ""});
+
     const addNoteHandler = (e) => {
         e.preventDefault(); //to avoid page reloading
         addNote(note.title, note.desc, note.tag);
+        setNote({title:"", desc: "", tag: ""});
     }
 
     const onChangeHandler = (e) => {
@@ -26,6 +28,7 @@ export const AddNote = () => {
           className="form-control"
           id="title"
           name="title"
+          value={note.title}
           aria-describedby="title"
           onChange={onChangeHandler}
           minLength={5}
@@ -41,6 +44,7 @@ export const AddNote = () => {
           className="form-control"
           id="desc"
           name="desc"
+          value={note.desc}
           onChange={onChangeHandler}
           minLength={5}
           required
@@ -55,6 +59,7 @@ export const AddNote = () => {
           className="form-control"
           id="tag"
           name="tag"
+          value={note.tag}
           onChange={onChangeHandler}
         />
       </div>
