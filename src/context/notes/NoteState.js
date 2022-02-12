@@ -89,17 +89,8 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, desc, tag }),
     });   
-    console.log("Adding a new note");
-    const note = {
-      _id: "620158d7750c711308b960ece",
-      user: "6200a95bc1727f6348379bf1",
-      title: title,
-      desc: desc,
-      tag: tag,
-      date: "2022-02-07T17:37:27.726Z",
-      __v: 0,
-    };
-    setNotes(notes.concat(note)); //using concat because concat returns an array while push updates an array
+    const note = await response.json();
+    setNotes(notes.concat(note)); //using concat because concat returns an array while push updates an array        
   };
 
   //Delete a note
@@ -128,7 +119,7 @@ const NoteState = (props) => {
   const editNote = async (noteId, title, desc, tag) => {
     //API Call
     const response = await fetch(`${host}/api/notes/update/${noteId}`, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      method: "PUT", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
         "auth-token":
@@ -136,17 +127,21 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, desc, tag }), // body data type must match "Content-Type" header
     });
-    const json = response.json(); // parses JSON response into native JavaScript objects
+    const json = await response.json(); // parses JSON response into native JavaScript objects
+    console.log(json);
 
+    let newNotesObj = JSON.parse((JSON.stringify(notes)));  //Keeping a deep copy of original object so that we can update the same
     //Logic to edit in client
     for (let i = 0; i < notes.length; i++) {
-      const element = notes[i];
+      const element = newNotesObj[i];
       if (element._id === noteId) {
-        element.title = title;
-        element.desc = desc;
-        element.tag = tag;
-      }
+        newNotesObj[i].title = title;
+        newNotesObj[i].desc = desc;
+        newNotesObj[i].tag = tag;
+        break;
+      }      
     }
+    setNotes(newNotesObj);
   };
 
   return (

@@ -5,17 +5,21 @@ import { AddNote } from './AddNote';
 
 function Notes() {
   const context = useContext(notesContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes()
   }, [])
 
   const ref = useRef(null);
-  const [note, setNote] = useState({etitle:"", edesc: "", etag: "default"});
+  const refClose = useRef(null);
+  
+  const [note, setNote] = useState({id: "", etitle:"", edesc: "", etag: ""});
 
   const handleClick = (e) => {
     console.log("Updating the note...", note);
     e.preventDefault(); //to avoid page reloading
+    editNote(note.id, note.etitle, note.edesc, note.etag);
+    refClose.current.click();  //using close btn reference to click it and close the modal when update btn is clicked
   };
   
   const onChangeHandler = (e) => {
@@ -24,7 +28,7 @@ function Notes() {
 
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({etitle: currentNote.title, edesc:currentNote.desc, etag:currentNote.tag});  //This will prefill the values in the edit modal when clicked
+    setNote({id:currentNote._id, etitle: currentNote.title, edesc:currentNote.desc, etag:currentNote.tag});  //This will prefill the values in the edit modal when clicked
   }
 
   return (
@@ -54,6 +58,8 @@ function Notes() {
           name="etitle"
           aria-describedby="etitle"
           onChange={onChangeHandler}
+          minLength={5}
+          required
         />       
       </div>
       <div className="mb-3">
@@ -67,6 +73,8 @@ function Notes() {
           id="edesc"
           name="edesc"
           onChange={onChangeHandler}
+          minLength={5}
+          required
         />
       </div>
       <div className="mb-3">
@@ -85,14 +93,17 @@ function Notes() {
     </form>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" className="btn btn-primary" onClick={handleClick}>Update Note</button>
+            <button type="button" ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button disabled={note.etitle.length < 5 || note.edesc.length < 5} type="button" className="btn btn-primary" onClick={handleClick}>Update Note</button>
           </div>
         </div>
       </div>
     </div>
-    <div className="row my-3">
+    <div className="container row my-3">
         <h1>Your Notes</h1>
+        <div className="container mx-2">
+        {notes.length === 0 && "No notes to display"}
+        </div>        
         {notes.map((note) => {
           return <NoteItem key={note._id} updateNote={updateNote} note={note}/>
         })}

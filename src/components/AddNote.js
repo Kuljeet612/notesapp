@@ -28,6 +28,8 @@ export const AddNote = () => {
           name="title"
           aria-describedby="title"
           onChange={onChangeHandler}
+          minLength={5}
+          required
         />       
       </div>
       <div className="mb-3">
@@ -40,6 +42,8 @@ export const AddNote = () => {
           id="desc"
           name="desc"
           onChange={onChangeHandler}
+          minLength={5}
+          required
         />
       </div>
       <div className="mb-3">
@@ -54,8 +58,7 @@ export const AddNote = () => {
           onChange={onChangeHandler}
         />
       </div>
-   
-      <button type="submit" className="btn btn-primary" onClick={addNoteHandler}>
+      <button disabled={note.title.length < 5 || note.desc.length < 5} type="submit" className="btn btn-primary" onClick={addNoteHandler}>
         Add Note
       </button>
     </form>
