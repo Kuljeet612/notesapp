@@ -21,7 +21,7 @@ const SignUp = (props) => {
       console.log(json);    
       if(json.success) {
         //save the auth-token and redirect
-        localStorage.setItem("token", json.authtoken);
+        localStorage.setItem("token", json.authToken);
         navigate("/");
         props.showAlert("Account created successfully!!!", "success");
     }
@@ -34,8 +34,9 @@ const SignUp = (props) => {
         setCredentials({...credentials, [e.target.name]: e.target.value});
     }
   return (
-    <div className='contaier'>
-      <form onSubmit={handleFormSubmit}>
+    <div className='contaier mt-3'>
+      <h2>Sign In to use My Notes App</h2>
+      <form className='my-3' onSubmit={handleFormSubmit}>
   <div className="mb-3">
     <label htmlFor="name" className="form-label">Name</label>
     <input type="text" required minLength={5} className="form-control" id="name" name="name" value={credentials.name} onChange={onChange} aria-describedby="emailHelp"/>    
